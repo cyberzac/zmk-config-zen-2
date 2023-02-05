@@ -2,58 +2,118 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 
+#define _DFT 0
+#define _NUM 1
+#define _ADJ 2
+#define _OSL 3
+
+
+/* Key index
+ 0  1  2  3  4         5  6  7  8  9
+10 11 12 13 14        15 16 17 18 19
+20 21 22 23 24        25 26 27 28 29
+        30 31 32    33 34 35         */
+	
 / {
   chosen {
-    zmk,matrix_transform = &default_transform;
-    //zmk,matrix_transform = &five_column_transform;
+    //zmk,matrix_transform = &default_transform;
+    zmk,matrix_transform = &five_column_transform;
   };
 };
 
-/ {
-        keymap {
-                compatible = "zmk,keymap";
+/  {
+  behaviors {
+    hm: homerow_mods {
+      compatible = "zmk,behavior-hold-tap";
+      label = "HOMEROW_MODS";
+      #binding-cells = <2>;
+      tapping-term-ms = <200>;
+      quick-tap-ms = <0>;
+      flavor = "tap-preferred";
+      bindings = <&kp>, <&kp>;
+    };
+
+    td0: tap_dance_0 {
+      compatible = "zmk,behavior-tap-dance";
+      label = "TAP_DANCE_0";
+      #binding-cells = <0>;
+      tapping-term-ms = <200>;
+      bindings = <&hm RGUI SEMI>, <&kp SQT>;
+    };
+
+    td1: tap_dance_1 {
+      compatible = "zmk,behavior-tap-dance";
+      label = "TAP_DANCE_1";
+      #binding-cells = <0>;
+      tapping-term-ms = <200>;
+      bindings = <&mt LCTRL TAB>, <&kp ESC>;
+    };
+  };
+
+  keymap {
+
+  	 compatible = "zmk,keymap";
 
                 default_layer {
-                        label = "QWERTY";
-// -----------------------------------------------------------------------------------------
-// |  TAB |  Q  |  W  |  E  |  R  |  T  |   |  Y  |  U   |  I  |  O  |  P  | BKSP |
-// | CTRL |  A  |  S  |  D  |  F  |  G  |   |  H  |  J   |  K  |  L  |  ;  |  '   |
-// | SHFT |  Z  |  X  |  C  |  V  |  B  |   |  N  |  M   |  ,  |  .  |  /  | ESC  |
-//                    | GUI | LWR | SPC |   | ENT | RSE  | ALT |
+                        label = "Colmak";
+// Homerow mod: shift, ctrl, alt, command
+// ----------------------------------------------------------------------------------------
+// |  Q  |  W  |  F  |  P  |  B   |	|  J   |  L   |  U   |  Y  |  ;  |
+// |  A  |  R  |  S  |  T  |  G   |	|  M   |  N   |  E   |  I  |  O  |
+// |  Z  |  X  |  C  |  D  |  V   |	|  K   |  H   |  ,   |  .  |  /  |
+//             | TAB | SPC | _NUM |	| _OSL | RET  | BSPC |
                         bindings = <
-   &kp TAB   &kp Q &kp W &kp E &kp R &kp T   &kp Y &kp U  &kp I     &kp O   &kp P    &kp BSPC
-   &kp LCTRL &kp A &kp S &kp D &kp F &kp G   &kp H &kp J  &kp K     &kp L   &kp SEMI &kp SQT
-   &kp LSHFT &kp Z &kp X &kp C &kp V &kp B   &kp N &kp M  &kp COMMA &kp DOT &kp FSLH &kp ESC
-                  &kp LGUI &mo 1 &kp SPACE   &kp RET &mo 2 &kp RALT
+   &kp Q          &kp W          &kp F          &kp P          &kp B        /**/   &kp J          &kp L          &kp U          &kp Y          &kp SEMI
+   &hm LSHFT  A   &hm LCTRL R    &hm LALT S     &hm LCMD T     &kp G        /**/   &kp M          &hm RCMD N     &hm RALT E     &hm RCTRL I    &hm RSHFT O
+   &kp Z          &kp X          &kp C          &kp D          &kp V        /**/   &kp K          &kp H          &kp COMMA      &kp DOT        &kp FSLH
+                                 &kp TAB        &kp SPACE      &to _NUM     /**/   &sl _OSL       &kp RET        &kp BSPC
                         >;
                 };
-                lower_layer {
-                        label = "NUMBER";
+		
+                num_layer {
+                        label = "NUM";
+// Homerow mod: shift, ctrl, alt, command
 // -----------------------------------------------------------------------------------------
-// |  TAB |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  | BKSP |
-// | BTCLR| BT1 | BT2 | BT3 | BT4 | BT5 |   | LFT | DWN |  UP | RGT |     |      |
-// | SHFT |     |     |     |     |     |   |     |     |     |     |     |      |
-//                    | GUI |     | SPC |   | ENT |     | ALT |
+// |  F1  |  F2 |  F3   |  F4   |  F5   |     |  F6  |  F7  |  F8   | F9 | F10 |
+// |  9   |  7  |  5    |  3    |  1    |     |  0   |  2   |  4    | 6  |  8  |
+// |  +   | -   | LEFT  | RIGHT | EQUAL |     |  UP  | DOWN |  ,    | .  |  /  |
+//              | TAB   | SPC   | _ADJ  |     | _DFL | RET  | BSPC |
                         bindings = <
-   &kp TAB    &kp N1       &kp N2       &kp N3       &kp N4       &kp N5         &kp N6   &kp N7   &kp N8 &kp N9    &kp N0 &kp BSPC
-   &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4   &kp LEFT &kp DOWN &kp UP &kp RIGHT &trans &trans
-   &kp LSHFT  &trans       &trans       &trans       &trans       &trans         &trans   &trans   &trans &trans    &trans &trans
-                          	        &kp LGUI     &trans       &kp SPACE      &kp RET  &trans   &kp RALT
+   &kp F1         &kp F2         &kp F3         &kp F4         &kp F5       /**/   &kp F6         &kp F7         &kp F8         &kp F9         &kp F10 
+   &hm LSHFT N9   &hm LCTRL N7   &hm LALT N5    &hm LCMD N3    &kp N1       /**/   &kp N0         &hm RCMD N2    &hm RALT N4    &hm RCTLR N6   &hm RSHFT N8
+   &kp PLUS       &kp MINUS      &kp LEFT       &kp RIGHT      &kp EQUAL    /**/   &kp UP         &kp DOWN       &trans         &trans         &trans
+               	                 &trans         &trans         &to _ADJ     /**/   &to _DFL       &trans         &trans
                         >;
                 };
 
-                raise_layer {
-                        label = "SYMBOL";
+                func_layer {
+                        label = "ADJ";
+
 // -----------------------------------------------------------------------------------------
-// |  TAB |  !  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  (  |  )  | BKSP |
-// | CTRL |     |     |     |     |     |   |  -  |  =  |  [  |  ]  |  \  |  `   |
-// | SHFT |     |     |     |     |     |   |  _  |  +  |  {  |  }  | "|" |  ~   |
-//                    | GUI |     | SPC |   | ENT |     | ALT |
+// |     |      | Mute | V_Up  | S_Up |     |        |      |      |       |       |
+// | Back| Play | Frwd | V_Dn  | S_Dn |     |        | RCMD | RALT | RCTRL | RSHFT |
+// | BT0 | BT1  | BT2  | BT3   | BT4  |     |  BTCLR |      |      |       |       |
+//              | TAB  | SPC   | _NUM |	    | _DFL | RET  | BSPC |
                         bindings = <
-   &kp  TAB  &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT   &kp CARET &kp AMPS  &kp KP_MULTIPLY &kp LPAR &kp RPAR &kp BSPC
-   &kp LCTRL &trans   &trans &trans   &trans   &trans      &kp MINUS &kp EQUAL &kp LBKT        &kp RBKT &kp BSLH &kp GRAVE
-   &kp LSHFT &trans   &trans &trans   &trans   &trans      &kp UNDER &kp PLUS  &kp LBRC        &kp RBRC &kp PIPE &kp TILDE
-                    	     &kp LGUI &trans   &kp SPACE   &kp RET   &trans    &kp RALT
+   &none          &none          &kp C_MUTE     &kp C_VOL_UP   &kp C_BRI_UP /**/  &none          &none          &none          &none          &none
+   &kp C_PREV     &kp C_PP       &kp C_NEXT     &kp C_VOL_DN   &kp C_BRI_DN /**/  &none          &kp RCMD       &kp RALT       &kp RCTRL      &kp RSHIFT
+   &bt BT_SEL 0   &bt BT_SEL 1   &bt BT_SEL 2   &bt BT_SEL 3   &bt BT_SEL 4 /**/  &bt BT_CLR     &none          &none          &none          &none
+                    	         &trans         &trans         &to _NUM     /**/  &to _DFL       &trans         &trans
+                        >;
+                };
+		
+                osl_layer {
+                        label = "OSL";
+// -----------------------------------------------------------------------------------------
+// |  !  |  @  |  #  |  $  |  %   |       |  &   | *    |  -   |   =   |  ;    |
+// |  <  |  {  |  [  |  (  |  `   |       |  ESC | RCMD | RALT | RCTRL | RSHFT |
+// |  >  |  }  |  ]  |  )  |  ~   |       |  +   |  '   |  "   |   ^   |   \   |
+//             | TAB | SPC | _NUM |	  | _OSL | RET  | BSPC |
+                        bindings = <
+   &kp EXCL      &kp AT         &kp HASH        &kp DLLR       &kp PRCNT    /**/   &kp AMPS       &kp ASTRK      &kp MINUS      &kp EQUAL      &trans
+   &kp &LT       &kp LBRC       &kp LBKT        &kp LPAR       &kp GRAVE    /**/   &kp ESC        &kp RCMD       &kp RALT       &kp RCTRL      &kp RSHIFT
+   &kp &GT       &kp RBRC       &kp RBKT        &kp RPAR       &kp TILDE    /**/   &kp PLUS       &kp SQT        &kp DQT        &kp CARET      &kp BLSH
+                    	        &trans          &trans         &to _OSL     /**/   &to _DFL       &trans         &trans
                         >;
                 };
         };
