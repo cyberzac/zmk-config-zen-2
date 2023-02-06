@@ -136,7 +136,7 @@
 //              | TAB   | SPC   | _ADJ  |     | _DFL | RET  | BSPC |
                 bindings = <
    &kp F1         &kp F2         &kp F3         &kp F4         &kp F5       /**/   &kp F6         &kp F7         &kp F8         &kp F9         &kp F10 
-   &hm LSHFT N9   &hm LCTRL N7   &hm LALT N5    &hm LCMD N3    &kp N1       /**/   &kp N0         &hm RCMD N2    &hm RALT N4    &hm RCTLR N6   &hm RSHFT N8
+   &hm LSHFT N9   &hm LCTRL N7   &hm LALT N5    &hm LCMD N3    &kp N1       /**/   &kp N0         &hm RCMD N2    &hm RALT N4    &hm RCTRL N6   &hm RSHFT N8
    &kp PLUS       &kp MINUS      &kp LEFT       &kp RIGHT      &kp EQUAL    /**/   &kp UP         &kp DOWN       &trans         &trans         &trans
                	                 &trans         &trans         &to _ADJ     /**/   &to _DFL       &trans         &trans
                         >;
