@@ -137,8 +137,8 @@
                 bindings = <
    &kp F1         &kp F2         &kp F3         &kp F4         &kp F5       /**/   &kp F6         &kp F7         &kp F8         &kp F9         &kp F10 
    &hm LSHFT N9   &hm LCTRL N7   &hm LALT N5    &hm LCMD N3    &kp N1       /**/   &kp N0         &hm RCMD N2    &hm RALT N4    &hm RCTRL N6   &hm RSHFT N8
-   &kp PLUS       &kp MINUS      &kp LEFT       &kp RIGHT      &kp EQUAL    /**/   &kp UP         &kp DOWN       &trans         &trans         &trans
-               	                 &kp TAB        &KP SPACE      &to _ADJ     /**/   &to _DFL       &trans         &trans
+   &kp PLUS       &kp MINUS      &kp LEFT       &kp RIGHT      &kp EQUAL    /**/   &kp UP         &kp DOWN       &kp COMMA      &kp DOT        &kp FSLH
+               	                 &kp TAB        &KP SPACE      &to _ADJ     /**/   &to _DFL       &kp RET        &kop BSPC
                         >;
                 };
 
@@ -153,7 +153,7 @@
    &none          &none          &kp C_MUTE     &kp C_VOL_UP   &kp C_BRI_UP /**/  &none          &none          &none          &none          &none
    &kp C_PREV     &kp C_PP       &kp C_NEXT     &kp C_VOL_DN   &kp C_BRI_DN /**/  &none          &kp RCMD       &kp RALT       &kp RCTRL      &kp RSHIFT
    &bt BT_SEL 0   &bt BT_SEL 1   &bt BT_SEL 2   &bt BT_SEL 3   &bt BT_SEL 4 /**/  &bt BT_CLR     &none          &none          &none          &none
-                    	         &trans         &trans         &to _NUM     /**/  &to _DFL       &trans         &trans
+                    	         &kp TAB        &kp SPACE      &to _NUM     /**/  &to _DFL       &kp RET        &kp BSPC
                         >;
                 };
 		
@@ -165,20 +165,10 @@
 // |  >  |  }  |  ]  |  )  |  ~   |       |  +   |  '   |  "   |   ^   |   \   |
 //             | TAB | SPC | _NUM |	  | _OSL | RET  | BSPC |
                  bindings = <
-   &kp EXCL      &kp AT         &kp HASH        &kp DLLR       &kp PRCNT    /**/   &kp AMPS       &kp ASTRK      &kp MINUS      &kp EQUAL      &trans
+   &kp EXCL      &kp AT         &kp HASH        &kp DLLR       &kp PRCNT    /**/   &kp AMPS       &kp ASTRK      &kp MINUS      &kp EQUAL      &kp ESC
    &kp &LT       &kp LBRC       &kp LBKT        &kp LPAR       &kp GRAVE    /**/   &kp ESC        &kp RCMD       &kp RALT       &kp RCTRL      &kp RSHIFT
    &kp &GT       &kp RBRC       &kp RBKT        &kp RPAR       &kp TILDE    /**/   &kp PLUS       &kp SQT        &kp DQT        &kp CARET      &kp BLSH
-                    	        &trans          &trans         &to _OSL     /**/   &to _DFL       &trans         &trans
-                        >;
-                };
-
-             adjust_layer {
-                  label = "ADJUST";
-                  bindings = <
-   &kp F12    &kp F7       &kp F8      &kp F9      &kp PSCRN        &bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3
-   &kp F11    &kp F4       &kp F5      &kp F6      &kp SLCK         &none       &kp LSHFT     &kp LCTRL     &kp LALT      &kp LGUI
-   &kp F10    &kp F1       &kp F2      &kp F3      &kp PAUSE_BREAK  &none       &none         &none         &none         &none
-              &bootloader  &trans      &trans                                   &trans        &trans        &bootloader
+                    	        &kp TAB         &kp SPACE      &to _OSL     /**/   &to _DFL       &kp RET        &kp BSPC
                         >;
                 };
 
