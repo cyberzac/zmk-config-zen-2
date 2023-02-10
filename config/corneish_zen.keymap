@@ -104,6 +104,13 @@
       tapping-term-ms = <200>;
       bindings = <&mt LCTRL TAB>, <&kp ESC>;
     };
+    td2: tap_dance_2 {
+      compatible = "zmk,behavior-tap-dance";
+      label = "TAP_DANCE_2";
+      #binding-cells = <0>;
+      tapping-term-ms = <200>;
+      bindings = <&sl _NUM>, <&to _NUM>;
+    };
   };
 };
 
@@ -122,7 +129,7 @@
    &kp Q          &kp W          &kp F          &kp P          &kp B        /**/   &kp J          &kp L          &kp U          &kp Y          &kp SEMI
    &hm LSHFT  A   &hm LCTRL R    &hm LALT S     &hm LCMD T     &kp G        /**/   &kp M          &hm RCMD N     &hm RALT E     &hm RCTRL I    &hm RSHFT O
    &kp Z          &kp X          &kp C          &kp D          &kp V        /**/   &kp K          &kp H          &kp COMMA      &kp DOT        &kp FSLH
-                                 &kp TAB        &kp SPACE      &to _NUM     /**/   &sl _OSL       &kp RET        &kp BSPC
+                                 &kp TAB        &kp SPACE      &td2         /**/   &sl _OSL       &kp RET        &kp BSPC
                         >;
                 };
 		
@@ -160,7 +167,7 @@
             osl_layer {
                  label = "OSL";
 // -----------------------------------------------------------------------------------------
-// |  !  |  @  |  #  |  $  |  %   |       |  &   | *    |  -   |   =   |  ;    |
+// |  !  |  @  |  #  |  $  |  %   |       |  &   | *    |  -   |   =   | ESC   |
 // |  <  |  {  |  [  |  (  |  `   |       |  ESC | RCMD | RALT | RCTRL | RSHFT |
 // |  >  |  }  |  ]  |  )  |  ~   |       |  +   |  '   |  "   |   ^   |   \   |
 //             | TAB | SPC | _NUM |	  | _OSL | RET  | BSPC |
