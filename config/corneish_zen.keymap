@@ -124,12 +124,12 @@
 // |  Q  |  W  |  F  |  P  |  B   |	|  J   |  L   |  U   |  Y  |  ;  |
 // |  A  |  R  |  S  |  T  |  G   |	|  M   |  N   |  E   |  I  |  O  |
 // |  Z  |  X  |  C  |  D  |  V   |	|  K   |  H   |  ,   |  .  |  /  |
-//             | TAB | SPC | _NUM |	| _OSL | RET  | BSPC |
+//             | TAB | _NUM| SPC  |	| RET  | _OSL | BSPC |
                 bindings = <
    &kp Q          &kp W          &kp F          &kp P          &kp B        /**/   &kp J          &kp L          &kp U          &kp Y          &kp SEMI
    &hm LSHFT  A   &hm LCTRL R    &hm LALT S     &hm LCMD T     &kp G        /**/   &kp M          &hm RCMD N     &hm RALT E     &hm RCTRL I    &hm RSHFT O
    &kp Z          &kp X          &kp C          &kp D          &kp V        /**/   &kp K          &kp H          &kp COMMA      &kp DOT        &kp FSLH
-                                 &kp TAB        &kp SPACE      &td2         /**/   &sl _OSL       &kp RET        &kp BSPC
+                                 &kp TAB        &td2           &kp SPACE    /**/   &kp RET        &sl _OSL       &kp BSPC
                         >;
                 };
 		
@@ -140,12 +140,12 @@
 // |  F1  |  F2 |  F3   |  F4   |  F5   |     |  F6  |  F7  |  F8   | F9 | F10 |
 // |  9   |  7  |  5    |  3    |  1    |     |  0   |  2   |  4    | 6  |  8  |
 // |  +   | -   | LEFT  | RIGHT | EQUAL |     |  UP  | DOWN |  ,    | .  |  /  |
-//              | TAB   | SPC   | _ADJ  |     | _DFL | RET  | BSPC |
+//              | TAB   | _ADJ   | SPC  |     |  RET | _DFL | BSPC |
                 bindings = <
    &kp F1         &kp F2         &kp F3         &kp F4         &kp F5       /**/   &kp F6         &kp F7         &kp F8         &kp F9         &kp F10 
    &hm LSHFT N9   &hm LCTRL N7   &hm LALT N5    &hm LCMD N3    &kp N1       /**/   &kp N0         &hm RCMD N2    &hm RALT N4    &hm RCTRL N6   &hm RSHFT N8
    &kp PLUS       &kp MINUS      &kp LEFT       &kp RIGHT      &kp EQUAL    /**/   &kp UP         &kp DOWN       &kp COMMA      &kp DOT        &kp FSLH
-               	                 &kp TAB        &kp SPACE      &to _ADJ     /**/   &to _DFL       &kp RET        &kp BSPC
+               	                 &kp TAB        &to _ADJ       &kp SPACE    /**/   &kp RET        &to _DFL       &kp BSPC
                         >;
                 };
 
@@ -155,27 +155,27 @@
 // |     |      | Mute | V_Up  | S_Up |     |        |      |      |       |       |
 // | Back| Play | Frwd | V_Dn  | S_Dn |     |        | RCMD | RALT | RCTRL | RSHFT |
 // | BT0 | BT1  | BT2  | BT3   | BT4  |     |  BTCLR |      |      |       |       |
-//              | TAB  | SPC   | _NUM |	    | _DFL | RET  | BSPC |
+//              | TAB  | _NUM  | SPC  |	    |  RET   | _DFL | BSPC |
                 bindings = <
    &none          &none          &kp C_MUTE     &kp C_VOL_UP   &kp C_BRI_UP /**/  &none          &none          &none          &none          &none
    &kp C_PREV     &kp C_PP       &kp C_NEXT     &kp C_VOL_DN   &kp C_BRI_DN /**/  &none          &kp RCMD       &kp RALT       &kp RCTRL      &kp RSHIFT
    &bt BT_SEL 0   &bt BT_SEL 1   &bt BT_SEL 2   &bt BT_SEL 3   &bt BT_SEL 4 /**/  &bt BT_CLR     &none          &none          &none          &none
-                    	         &kp TAB        &kp SPACE      &to _NUM     /**/  &to _DFL       &kp RET        &kp BSPC
+                    	         &kp TAB        &to _NUM       &kp SPACE    /**/  &kp RET        &to _DFL       &kp BSPC
                         >;
                 };
 		
             osl_layer {
                  label = "OSL";
 // -----------------------------------------------------------------------------------------
-// |  !  |  @  |  #  |  $  |  %   |       |  &   | *    |  -   |   =   | ESC   |
-// |  <  |  {  |  [  |  (  |  `   |       |  ESC | RCMD | RALT | RCTRL | RSHFT |
-// |  >  |  }  |  ]  |  )  |  ~   |       |  +   |  '   |  "   |   ^   |   \   |
-//             | TAB | SPC | _NUM |	  | _OSL | RET  | BSPC |
+// |  !  |  @   |  #  |  $  |  %    |       |  &    | *    |  -   |   =   | ESC   |
+// |  <  |  {   |  [  |  (  |  `    |       |  ESC  | RCMD | RALT | RCTRL | RSHFT |
+// |  >  |  }   |  ]  |  )  |  ~    |       |  +    |  '   |  "   |   ^   |   \   |
+//              | TAB | _NUM|  SPC  |	    |  RET  | _DFL | BSPC |
                  bindings = <
    &kp EXCL      &kp AT         &kp HASH        &kp DLLR       &kp PRCNT    /**/   &kp AMPS       &kp ASTRK      &kp MINUS      &kp EQUAL      &kp ESC
    &kp LT        &kp LBRC       &kp LBKT        &kp LPAR       &kp GRAVE    /**/   &kp ESC        &kp RCMD       &kp RALT       &kp RCTRL      &kp RSHIFT
    &kp GT        &kp RBRC       &kp RBKT        &kp RPAR       &kp TILDE    /**/   &kp PLUS       &kp SQT        &kp DQT        &kp CARET      &kp BSLH
-                    	        &kp TAB         &kp SPACE      &to _OSL     /**/   &to _DFL       &kp RET        &kp BSPC
+                    	        &kp TAB         &to _OSL       &kp SPACE    /**/   &kp RET        &to _DFL       &kp BSPC
                         >;
                 };
 
