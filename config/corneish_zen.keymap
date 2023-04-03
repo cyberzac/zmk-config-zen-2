@@ -2,24 +2,24 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 
-#define _DEFAULT 0
-#define _GAME 1
-#define _NAVI 2
-#define _SYMBOL 3
-#define _NUMBER 4
-#define _MOUSE 5
-#define _MEDIA 6
-#define _ADJUST 7
+#define _DFL 0
+#define _NUM 1
+#define _ADJ 2
+#define _OSL 3
 
 #define TAPPING_TERM 150
 #define QUICK_TAP 200
 
-/* Key index
+
+/*
+ Key index
  0  1  2  3  4         5  6  7  8  9
 10 11 12 13 14        15 16 17 18 19
 20 21 22 23 24        25 26 27 28 29
-        30 31 32    33 34 35         */
+        30 31 32    33 34 35
+*/
 
+/*
 / {
     combos {
         compatible = "zmk,combos";
@@ -62,112 +62,120 @@
     };
 };
 
-&lt {
+*/
+
+/*
+/ {
     tapping-term-ms = <TAPPING_TERM>;
     quick-tap-ms = <QUICK_TAP>;
 };
 
-/ {
-    behaviors {
-        hm: homerow_mods {
-            compatible = "zmk,behavior-hold-tap";
-            label = "HOMEROW_MODS";
-            #binding-cells = <2>;
-            tapping-term-ms = <TAPPING_TERM>;
-            quick-tap-ms = <QUICK_TAP>;
-            flavor = "tap-preferred";
-            bindings = <&kp>, <&kp>;
-        };
-    };
-};
+*/
 
 / {
+
   chosen {
     zmk,matrix_transform = &five_column_transform;
   };
 };
 
 / {
-        keymap {
-                compatible = "zmk,keymap";
+  behaviors {
+    hm: homerow_mods {
+      compatible = "zmk,behavior-hold-tap";
+      label = "HOMEROW_MODS";
+      #binding-cells = <2>;
+      tapping-term-ms = <200>;
+      quick-tap-ms = <0>;
+      flavor = "tap-preferred";
+      bindings = <&kp>, <&kp>;
+    };
+    td0: tap_dance_0 {
+      compatible = "zmk,behavior-tap-dance";
+      label = "TAP_DANCE_0";
+      #binding-cells = <0>;
+      tapping-term-ms = <200>;
+      bindings = <&hm RGUI SEMI>, <&kp SQT>;
+    };
+    td1: tap_dance_1 {
+      compatible = "zmk,behavior-tap-dance";
+      label = "TAP_DANCE_1";
+      #binding-cells = <0>;
+      tapping-term-ms = <200>;
+      bindings = <&mt LCTRL TAB>, <&kp ESC>;
+    };
+    td2: tap_dance_2 {
+      compatible = "zmk,behavior-tap-dance";
+      label = "TAP_DANCE_2";
+      #binding-cells = <0>;
+      tapping-term-ms = <200>;
+      bindings = <&sl _NUM>, <&to _NUM>;
+    };
+  };
+};
 
-                default_layer {
-                        label = "QWERTY";
-                        bindings = <
-   &kp Q      &kp W      &kp E       &kp R       &kp T   &kp Y &kp U        &kp I        &kp O      &kp P
-   &hm LGUI A &hm LALT S &hm LCTRL D &hm LSHFT F &kp G   &kp H &hm LSHFT J  &hm LCTRL K  &hm LALT L &hm LGUI SQT
-   &kp Z      &kp X      &kp C       &kp V       &kp B   &kp N &kp M        &kp COMMA    &kp DOT    &kp FSLH
-              &lt _MEDIA ESC  &lt _NAVI BSPC  &lt _MOUSE TAB  &lt _ADJUST RET  &lt _SYMBOL SPC  &lt _NUMBER DEL
+/ {
+  keymap {
+            compatible = "zmk,keymap";
+            default_layer {
+                label = "Colmak";
+// Homerow mod: shift, ctrl, alt, command
+// ----------------------------------------------------------------------------------------
+// |  Q  |  W  |  F  |  P  |  B   |	|  J   |  L   |  U   |  Y  |  ;  |
+// |  A  |  R  |  S  |  T  |  G   |	|  M   |  N   |  E   |  I  |  O  |
+// |  Z  |  X  |  C  |  D  |  V   |	|  K   |  H   |  ,   |  .  |  /  |
+//             | TAB | _NUM| SPC  |	| RET  | _OSL | BSPC |
+                bindings = <
+   &kp Q          &kp W          &kp F          &kp P          &kp B        /**/   &kp J          &kp L          &kp U          &kp Y          &kp SEMI
+   &hm LSHFT  A   &hm LCTRL R    &hm LALT S     &hm LCMD T     &kp G        /**/   &kp M          &hm RCMD N     &hm RALT E     &hm RCTRL I    &hm RSHFT O
+   &kp Z          &kp X          &kp C          &kp D          &kp V        /**/   &kp K          &kp H          &kp COMMA      &kp DOT        &kp FSLH
+                                 &kp TAB        &td2           &kp SPACE    /**/   &kp RET        &sl _OSL       &kp BSPC
+                        >;
+                };
+		
+            num_layer {
+                label = "NUM";
+// Homerow mod: shift, ctrl, alt, command
+// -----------------------------------------------------------------------------------------
+// |  F1  |  F2 |  F3   |  F4   |  F5   |     |  F6  |  F7  |  F8   | F9 | F10 |
+// |  9   |  7  |  5    |  3    |  1    |     |  0   |  2   |  4    | 6  |  8  |
+// |  +   | -   | LEFT  | RIGHT | EQUAL |     |  UP  | DOWN |  ,    | .  |  /  |
+//              | TAB   | _ADJ   | SPC  |     |  RET | _DFL | BSPC |
+                bindings = <
+   &kp F1         &kp F2         &kp F3         &kp F4         &kp F5       /**/   &kp F6         &kp F7         &kp F8         &kp F9         &kp F10 
+   &hm LSHFT N9   &hm LCTRL N7   &hm LALT N5    &hm LCMD N3    &kp N1       /**/   &kp N0         &hm RCMD N2    &hm RALT N4    &hm RCTRL N6   &hm RSHFT N8
+   &kp PLUS       &kp MINUS      &kp LEFT       &kp RIGHT      &kp EQUAL    /**/   &kp UP         &kp DOWN       &kp COMMA      &kp DOT        &kp FSLH
+               	                 &kp TAB        &to _ADJ       &kp SPACE    /**/   &kp RET        &to _DFL       &kp BSPC
                         >;
                 };
 
-                game_layer {
-                        label = "GAME";
-                        bindings = <
-   &kp Q      &kp W      &kp E       &kp R       &kp T   &kp Y &kp U        &kp I        &kp O      &kp P
-   &mt LGUI A &mt LALT S &mt LCTRL D &mt LSHFT F &kp G   &kp H &mt LSHFT J  &mt LCTRL K  &mt LALT L &mt LGUI SQT
-   &kp Z      &kp X      &kp C       &kp V       &kp B   &kp N &kp M        &kp COMMA    &kp DOT    &kp FSLH
-              &kp LGUI   &mo 1       &kp SPACE           &kp RET            &mo 2        &kp RALT
+            func_layer {
+                label = "ADJ";
+// -----------------------------------------------------------------------------------------
+// |     |      | Mute | V_Up  | S_Up |     |        |      |      |       |       |
+// | Back| Play | Frwd | V_Dn  | S_Dn |     |        | RCMD | RALT | RCTRL | RSHFT |
+// | BT0 | BT1  | BT2  | BT3   | BT4  |     |  BTCLR |      |      |       |       |
+//              | TAB  | _NUM  | SPC  |	    |  RET   | _DFL | BSPC |
+                bindings = <
+   &none          &none          &kp C_MUTE     &kp C_VOL_UP   &kp C_BRI_UP /**/  &none          &none          &none          &none          &none
+   &kp C_PREV     &kp C_PP       &kp C_NEXT     &kp C_VOL_DN   &kp C_BRI_DN /**/  &none          &kp RCMD       &kp RALT       &kp RCTRL      &kp RSHIFT
+   &bt BT_SEL 0   &bt BT_SEL 1   &bt BT_SEL 2   &bt BT_SEL 3   &bt BT_SEL 4 /**/  &bt BT_CLR     &none          &none          &none          &none
+                    	         &kp TAB        &to _NUM       &kp SPACE    /**/  &kp RET        &to _DFL       &kp BSPC
                         >;
                 };
-
-                navi_layer {
-                        label = "NAVI";
-                        bindings = <
-   &none      &none      &none       &none       &none  &kp K_REDO  &kp LC(V)    &kp LC(C)   &kp LC(X)  &kp LC(Z)
-   &kp LGUI   &kp LALT   &kp LCTRL   &kp LSHFT   &none  &kp LEFT    &kp DOWN     &kp UP      &kp RIGHT  &caps_word
-   &kp RGUI   &sk RALT   &sk RCTRL   &sk RSHFT   &none  &kp HOME    &kp PG_DN    &kp PG_UP   &kp END    &kp INS
-              &trans     &trans      &trans                         &trans       &trans      &trans
-                        >;
-                };
-
-                symbol_layer {
-                        label = "SYMBOL";
-                        bindings = <
-   &kp GRAVE  &kp AMPS  &kp STAR   &kp MINUS   &none      &none     &kp UNDER &kp LT    &kp GT    &kp TILDE
-   &kp COLON  &kp DLLR  &kp PRCNT  &kp CARET   &kp EQUAL  &kp PLUS  &kp LPAR  &kp LBKT  &kp LBRC  &kp SEMI
-   &kp PIPE   &kp EXCL  &kp AT     &kp HASH    &none      &none     &kp RPAR  &kp RBKT  &kp RBRC  &kp BSLH
-              &trans    &trans     &trans                           &trans    &trans    &trans
-                        >;
-                };
-
-                number_layer {
-                        label = "NUMBER";
-                        bindings = <
-   &kp FSLH  &kp N7  &kp N8  &kp N9  &kp STAR   &none  &none      &none      &none     &none
-   &kp N0    &kp N4  &kp N5  &kp N6  &kp MINUS  &none  &kp LSHFT  &kp LCTRL  &kp LALT  &kp LGUI
-   &kp DOT   &kp N1  &kp N2  &kp N3  &kp PLUS   &none  &none      &none      &none     &none
-             &trans  &trans  &trans                    &trans     &trans     &trans
-                        >;
-                };
-
-                mouse_layer {
-                        label = "MOUSE";
-                        bindings = <
-   &none      &none      &none       &none       &none      &none  &none        &none        &none      &none
-   &kp LGUI   &kp LALT   &kp LCTRL   &kp LSHFT   &none      &none  &none        &none        &none      &none
-   &none      &none      &none       &none       &none      &none  &none        &none        &none      &none
-              &trans     &trans      &trans                        &trans       &trans       &trans
-                        >;
-                };
-
-                media_layer {
-                        label = "MEDIA";
-                        bindings = <
-   &none      &none      &none       &none       &none      &kp K_REDO  &kp K_PASTE   &kp K_COPY    &kp K_CUT   &kp K_UNDO
-   &kp LGUI   &kp LALT   &kp LCTRL   &kp LSHFT   &none      &kp K_PREV  &kp K_VOL_DN  &kp K_VOL_UP  &kp K_NEXT  &kp K_MUTE
-   &none      &none      &none       &none       &none      &none       &none         &none         &none       &none
-              &trans     &trans      &trans                             &trans        &trans        &trans
-                        >;
-                };
-
-                adjust_layer {
-                        label = "ADJUST";
-                        bindings = <
-   &kp F12    &kp F7       &kp F8      &kp F9      &kp PSCRN        &bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3
-   &kp F11    &kp F4       &kp F5      &kp F6      &kp SLCK         &none       &kp LSHFT     &kp LCTRL     &kp LALT      &kp LGUI
-   &kp F10    &kp F1       &kp F2      &kp F3      &kp PAUSE_BREAK  &none       &none         &none         &none         &none
-              &bootloader  &trans      &trans                                   &trans        &trans        &bootloader
+		
+            osl_layer {
+                 label = "OSL";
+// -----------------------------------------------------------------------------------------
+// |  !  |  @   |  #  |  $  |  %    |       |  &    | *    |  -   |   =   | ESC   |
+// |  <  |  {   |  [  |  (  |  `    |       |  ESC  | RCMD | RALT | RCTRL | RSHFT |
+// |  >  |  }   |  ]  |  )  |  ~    |       |  +    |  '   |  "   |   ^   |   \   |
+//              | TAB | _NUM|  SPC  |	    |  RET  | _DFL | BSPC |
+                 bindings = <
+   &kp EXCL      &kp AT         &kp HASH        &kp DLLR       &kp PRCNT    /**/   &kp AMPS       &kp ASTRK      &kp MINUS      &kp EQUAL      &kp ESC
+   &kp LT        &kp LBRC       &kp LBKT        &kp LPAR       &kp GRAVE    /**/   &kp ESC        &kp RCMD       &kp RALT       &kp RCTRL      &kp RSHIFT
+   &kp GT        &kp RBRC       &kp RBKT        &kp RPAR       &kp TILDE    /**/   &kp PLUS       &kp SQT        &kp DQT        &kp CARET      &kp BSLH
+                    	        &kp TAB         &to _OSL       &kp SPACE    /**/   &kp RET        &to _DFL       &kp BSPC
                         >;
                 };
 
